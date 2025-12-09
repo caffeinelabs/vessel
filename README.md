@@ -5,9 +5,9 @@ The original package manager for the Motoko programming language.
 ## Getting started
 
 1. Download a copy of the `vessel` binary [from the release page](https://github.com/dfinity/vessel/releases) or build one yourself
-   1. For Ubuntu in `$HOME/bin` RUN `wget https://github.com/dfinity/vessel/releases/download/v0.7.0/vessel-linux64` 
+   1. For Ubuntu in `$HOME/bin` RUN `wget https://github.com/dfinity/vessel/releases/download/v0.8.0/vessel-linux64`
 
-      For macOS in `/usr/local/bin` RUN: `wget https://github.com/dfinity/vessel/releases/download/v0.7.0/vessel-macos` 
+      For macOS in `/usr/local/bin` RUN: `wget https://github.com/dfinity/vessel/releases/download/v0.8.0/vessel-macos`
    2. Rename vessel-linux64 to vessel eg: RUN `mv vessel-linux64 vessel`
    3. Change permissions, `chmod +x vessel`
 2. Run `vessel init` in your project root.
@@ -99,6 +99,22 @@ Now you can depend on this package by adding `mypackage` to your `vessel.dhall` 
 Running `vessel sources` will return flags in a format you can pass directly to
 the various compiler tools. Running `vessel bin` returns the path containing the
 compiler binaries. Use like so: `$(vessel bin)/mo-doc`.
+
+### How to use `vessel verify` to verify a package
+
+`vessel verify` will verify that the given package set compiles successfully.
+
+`vessel verify --version 0.15.1` will compile the package set with version `0.15.1` of the Motoko compiler
+
+`vessel verify --compile` will compile the given package set and validate the wasm output using wasm-validate.
+
+`vessel verify --package <package_name>` will restrict the verification to the given package.
+
+`vessel verify --moc <path_to_moc>` will use the given `moc` binary to verify the package.
+Skipping the `--moc` flag will use the `moc` binary in the `PATH`.
+
+`vessel verify --moc-args="--legacy-persistence --legacy-actors"` will pass the given arguments to the `moc` binary.
+In this example, the `--legacy-persistence` and `--legacy-actors` flags are passed to verify packages that were not migrated to the new persistence standard.
 
 ## License
 Vessel is distributed under the terms of the Apache License (Version 2.0).
